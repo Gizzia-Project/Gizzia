@@ -1,19 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getArticleById, deleteArticle } from "@/db/models/article";
 
-// export async function GET(req: NextRequest, params: { params: { id: string } }) {
-//     try {
-//         const id = params.params.id;
-//         if (!id) {
-//             return NextResponse.json({ error: "ID not provided" }, { status: 400 });
-//         }
-//         const article = await getArticleById(id);
-//         return NextResponse.json(article);
-//     } catch (error) {
-//         return NextResponse.json({ error: "Failed to fetch article" }, { status: 500 });
-//     }
-// }
-
 export async function GET(req: NextRequest, params: { params: { id: string } }) {
     try {
         const id = params.params.id;
@@ -30,12 +17,9 @@ export async function GET(req: NextRequest, params: { params: { id: string } }) 
 
         return NextResponse.json({ data: article });  // Menambahkan key `data`
     } catch (error) {
-        console.error('Error fetching article:', error);  // Tambahkan log error untuk debugging
         return NextResponse.json({ error: "Failed to fetch article" }, { status: 500 });
     }
 }
-
-
 
 export async function DELETE(req: NextRequest, params: { params: { id: string } }) {
     try {
