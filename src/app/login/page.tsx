@@ -67,11 +67,13 @@ export default function LoginComponent() {
       </div>
 
       <div className="relative z-10 flex-1 flex items-center justify-center p-8 bg-black bg-opacity-60">
-        <div className="w-full max-w-md space-y-8">
-          <div className="space-y-2 text-white">
-            <h1 className="text-3xl font-bold tracking-tight">Welcome back!</h1>
+        <div className="w-full max-w-lg space-y-10  bg-opacity-60 rounded-xl p-8 shadow-md backdrop-blur-sm">
+          <div className="space-y-4 text-center text-white">
+            <h1 className="text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#95dfb5] to-[#cbcccb]">
+              Welcome Back!
+            </h1>
             <p className="text-gray-300">
-              Enter your Credentials to access your account
+              Log in to access your account and continue where you left off.
             </p>
           </div>
 
@@ -79,53 +81,42 @@ export default function LoginComponent() {
             <div className="space-y-4">
               <div className="relative">
                 <Input
-                  className="pl-10 h-12 text-white bg-[#e7fadf] border border-gray-400 placeholder-gray-300 focus:ring-2 focus:ring-[#d0f5bb]"
+                  className="pl-12 h-14 text-white bg-[#0f1c0f] border-white rounded-xl focus:outline-none focus:ring-2 focus:ring-[#95dfb5] placeholder-gray-400 transition-all"
                   placeholder="Enter your email"
                   type="email"
                   name="email"
                   required
                 />
-                <Mail className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
+                <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
               </div>
 
               <div className="relative">
                 <Input
-                  className="pl-10 h-12 text-white bg-[#e7fadf] border border-gray-400 placeholder-gray-300 focus:ring-2 focus:ring-[#d0f5bb]"
-                  placeholder="Password"
+                  className="pl-12 h-14 text-white bg-[#0f1c0f] border-white rounded-xl focus:outline-none focus:ring-2 focus:ring-[#95dfb5] placeholder-gray-400 transition-all"
+                  placeholder="Enter your password"
                   type="password"
                   name="password"
                   required
                 />
-                <Lock className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
+                <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
               </div>
             </div>
-
-            <div className="flex items-center justify-between">
-              <Link
-                href="/forgot-password"
-                className="text-sm text-blue-400 hover:text-blue-300"
-              >
-                Forgot password
-              </Link>
-            </div>
-
             <Button
               type="submit"
-              className="w-full h-12 bg-green-700 hover:bg-green-600"
+              className="w-full h-14 bg-gradient-to-r from-[#95dfb5] to-[#0e2518] text-white font-bold rounded-xl shadow-lg hover:scale-105 transition duration-300"
             >
               Login
             </Button>
 
-            <div className="relative">
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-transparent px-2 text-gray-300">Or</span>
-              </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-transparent px-2 text-gray-300">Or</span>
             </div>
+
             <p className="text-center text-sm text-gray-300">
               Don't have an account?{" "}
               <Link
                 href="/register"
-                className="text-blue-400 hover:text-blue-300"
+                className="text-cyan-600 hover:text-cyan-300 transition duration-300"
               >
                 Sign Up
               </Link>

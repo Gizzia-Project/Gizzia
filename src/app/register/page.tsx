@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Mail, Lock } from "lucide-react";
+import { Mail, Lock, User2Icon, CircleUserRound } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 export default function RegisterComponent() {
@@ -56,7 +56,7 @@ export default function RegisterComponent() {
 
   return (
     <div className="relative flex min-h-screen">
-      {/* Background gambar penuh */}
+      {/* Background image */}
       <div className="absolute inset-0">
         <img
           src="/gizi-seimbang.jpg"
@@ -65,11 +65,12 @@ export default function RegisterComponent() {
         />
       </div>
 
-      {/* Form registrasi dengan latar belakang semi-transparan */}
+      {/* Registration Form with semi-transparent background */}
       <div className="relative z-10 flex-1 flex items-center justify-center p-8 bg-black bg-opacity-60">
-        <div className="w-full max-w-md space-y-8">
-          <div className="space-y-2 text-white">
-            <h1 className="text-3xl font-bold tracking-tight">
+        <div className="w-full max-w-lg space-y-10 bg-opacity-60 rounded-xl p-8 shadow-md backdrop-blur-sm">
+          {/* Header */}
+          <div className="space-y-4 text-center text-white">
+            <h1 className="text-4xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#95dfb5] to-[#cbcccb]">
               Get Started Now
             </h1>
             <p className="text-gray-300">
@@ -77,55 +78,77 @@ export default function RegisterComponent() {
             </p>
           </div>
 
-          <form className="space-y-6" onSubmit={handleSubmit}>
+          {/* Registration Form */}
+          <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-4">
-              {/* Fullname */}
-              <Input
-                className="h-12 text-white bg-[#e7fadf] border border-gray-400 placeholder-gray-300 focus:ring-2 focus:ring-[#d0f5bb]"
-                placeholder="Fullname"
-                type="text"
-                value={fullname}
-                onChange={(e) => setFullname(e.target.value)}
-              />
-
-              {/* Username */}
-              <Input
-                className="h-12 text-white bg-[#e7fadf] border border-gray-400 placeholder-gray-300 focus:ring-2 focus:ring-[#d0f5bb]"
-                placeholder="Username"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-              />
-
-              {/* Email */}
+              {/* Fullname Input */}
               <div className="relative">
                 <Input
-                  className="pl-10 h-12 text-white bg-[#e7fadf] border border-gray-400 placeholder-gray-300 focus:ring-2 focus:ring-[#d0f5bb]"
+                  className="pl-12 h-14 text-white bg-[#0f1c0f] border-2 border-white rounded-xl focus:outline-none focus:ring-2 focus:ring-[#95dfb5] placeholder-gray-400 transition-all"
+                  placeholder="Fullname"
+                  type="text"
+                  value={fullname}
+                  onChange={(e) => setFullname(e.target.value)}
+                  required
+                />
+                {/* Icon */}
+                <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#939292]">
+                  <CircleUserRound className="h-6 w-6" />
+                </div>
+              </div>
+              {/* Username Input */}
+              <div className="relative">
+                <Input
+                  className="pl-12 h-14 text-white bg-[#0f1c0f] border-2 border-white rounded-xl focus:outline-none focus:ring-2 focus:ring-[#95dfb5] placeholder-gray-400 transition-all"
+                  placeholder="Username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+                {/* Icon */}
+                <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#939292]">
+                  <User2Icon className="h-6 w-6" />
+                </div>
+              </div>
+              {/* Email Input */}
+              <div className="relative">
+                <Input
+                  className="pl-12 h-14 text-white bg-[#0f1c0f] border-white rounded-xl focus:outline-none focus:ring-2 focus:ring-[#95dfb5] placeholder-gray-400 transition-all"
                   placeholder="Email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  required
                 />
-                <Mail className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
+                <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
               </div>
 
-              {/* Password */}
+              {/* Password Input */}
               <div className="relative">
                 <Input
-                  className="pl-10 h-12 text-white bg-[#e7fadf] border border-gray-400 placeholder-gray-300 focus:ring-2 focus:ring-[#d0f5bb]"
+                  className="pl-12 h-14 text-white bg-[#0f1c0f] border-white rounded-xl focus:outline-none focus:ring-2 focus:ring-[#95dfb5] placeholder-gray-400 transition-all"
                   placeholder="Password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
+                  required
                 />
-                <Lock className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
+                <Lock className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
               </div>
 
-              {/* Gender */}
+              {/* Gender Dropdown */}
               <select
-                className="h-12 text-[#4e524b] pl-2 bg-[#e7fadf] border border-gray-400 placeholder-gray-300 focus:ring-2 focus:ring-[#d0f5bb] w-full"
+                className={`h-14 pl-4 bg-[#0f1c0f] border-2 border-[#f8f6f6] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#95dfb5] placeholder-gray-400 w-full ${
+                  gender === "male"
+                    ? "text-white"
+                    : gender === "female"
+                    ? "text-white"
+                    : "text-[#4e524b]"
+                }`}
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
+                required
               >
                 <option value="" disabled>
                   Select Gender
@@ -134,19 +157,21 @@ export default function RegisterComponent() {
                 <option value="female">Female</option>
               </select>
 
-              {/* Date of Birth */}
+              {/* Date of Birth Input */}
               <Input
-                className="h-12 text-white bg-[#e7fadf] border border-gray-400 placeholder-gray-300 focus:ring-2 focus:ring-[#d0f5bb]"
+                className="pl-12 h-14 text-[#939292] bg-[#0f1c0f] border-white rounded-xl focus:outline-none focus:ring-2 focus:ring-[#95dfb5] placeholder-gray-400 transition-all valid:text-white"
                 placeholder="Date of Birth"
                 type="date"
                 value={dateOfBirth}
                 onChange={(e) => setDateOfBirth(e.target.value)}
+                required
               />
             </div>
 
-            {/* Submit button */}
+            {/* Submit Button */}
             <Button
-              className="w-full h-12 bg-green-700 hover:bg-green-600"
+              type="submit"
+              className="w-full h-14 bg-gradient-to-r from-[#95dfb5] to-[#0e2518] text-white font-bold rounded-xl shadow-lg hover:scale-105 transition duration-300"
               disabled={loading}
             >
               {loading ? "Registering..." : "Sign Up"}
@@ -155,9 +180,13 @@ export default function RegisterComponent() {
             {/* Error message */}
             {error && <p className="text-center text-red-500">{error}</p>}
 
+            {/* Already have an account */}
             <p className="text-center text-sm text-gray-300">
               Already have an account?{" "}
-              <Link href="/login" className="text-blue-400 hover:text-blue-300">
+              <Link
+                href="/login"
+                className="text-cyan-400 hover:text-cyan-300 transition duration-300"
+              >
                 Login
               </Link>
             </p>

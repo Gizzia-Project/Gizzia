@@ -18,7 +18,7 @@ export default function PostCard({ post, onLikeToggle }: PostCardProps) {
 
   return (
     <Link href={`/forum/${post._id}`}>
-      <Card className="p-6 hover:shadow-lg transition-shadow bg-white">
+      <Card className="p-6 hover:shadow-lg transition-shadow bg-white mb-5">
         <div className="flex items-center gap-4 mb-4">
           <Avatar>
             <AvatarImage
