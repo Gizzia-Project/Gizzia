@@ -17,6 +17,8 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
   const fetchPost = async () => {
     const response = await fetch(`/api/posts/${params.id}`);
     const data = await response.json();
+    console.log(data);
+
     setPost(data);
   };
 
@@ -43,8 +45,8 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
   if (!post) return null;
 
   return (
-    <main className="min-h-screen bg-[#f8ffe6] p-10 py-12 px-4">
-      <div className="container mx-auto px-4 py-8">
+    <main className="min-h-screen bg-[#f8ffe6] p-10 px-4">
+      <div className="container mx-auto px-4">
         <Link href="/forum">
           <Button variant="ghost" className="mb-4 text-gray-900">
             ← Back to Forum
@@ -55,16 +57,20 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
           <div className="flex items-center gap-4 mb-4">
             <Avatar>
               <AvatarImage
-                src={`https://avatar.vercel.sh/${post.user?.username}`}
+                src={"/placeholder.svg?height=96&width=96"}
+                alt="Profile picture"
+                className="object-cover"
               />
-              <AvatarFallback>{post.user?.name[0]}</AvatarFallback>
+              <AvatarFallback className="flex items-center justify-center text-lg font-bold text-white bg-[#113d1e]">
+                {post.user?.username ? post.user.username[0] : "U"}
+              </AvatarFallback>
             </Avatar>
             <div>
               <h2 className="text-xl text-gray-900 font-semibold">
                 {post.title}
               </h2>
               <p className="text-sm text-gray-500">
-                Posted by {post.user?.name} •{" "}
+                Posted by {post.user?.username} •{" "}
                 {formatDistanceToNow(new Date(post.createdAt))} ago
               </p>
             </div>
@@ -123,14 +129,21 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
           <div className="space-y-4">
             {post.comments?.map((comment, index) => (
               <Card key={index} className="p-4 bg-white">
-                <div className="flex items-start gap-4">
+                <div className="flex items-center gap-4">
                   <Avatar>
                     <AvatarImage
-                      src={`https://avatar.vercel.sh/${comment.userId}`}
+                      src={"/placeholder.svg?height=96&width=96"}
+                      alt="Profile picture"
+                      className="object-cover"
                     />
-                    <AvatarFallback>U</AvatarFallback>
+                    <AvatarFallback className="flex items-center justify-center text-lg font-bold text-white bg-[#113d1e]">
+                      {comment.username ? comment.username[0] : "U"}
+                    </AvatarFallback>
                   </Avatar>
                   <div>
+                    <p className="whitespace-pre-wrap text-black font-bold">
+                      {comment.username}
+                    </p>
                     <p className="whitespace-pre-wrap text-black">
                       {comment.content}
                     </p>

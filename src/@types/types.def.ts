@@ -33,6 +33,7 @@ export type CommentModel = {
   content: string;
   userId: ObjectId;
   postId: ObjectId;
+  username?: string;
   createdAt: Date;
 };
 

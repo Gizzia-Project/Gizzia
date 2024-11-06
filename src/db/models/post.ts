@@ -101,6 +101,36 @@ export const getPostById = async (id: string) => {
       {
         $unwind: "$user",
       },
+      { $unwind: "$comments" },
+      {
+        $lookup: {
+          from: "Users",
+          localField: "comments.userId",
+          foreignField: "_id",
+          as: "commentUserDetails",
+        },
+      },
+      {
+        $addFields: {
+          "comments.username": {
+            $arrayElemAt: ["$commentUserDetails.username", 0],
+          },
+        },
+      },
+      {
+        $group: {
+          _id: "$_id",
+          title: { $first: "$title" },
+          content: { $first: "$content" },
+          category: { $first: "$category" },
+          imageUrl: { $first: "$imageUrl" },
+          createdAt: { $first: "$createdAt" },
+          updatedAt: { $first: "$updatedAt" },
+          likes: { $first: "$likes" },
+          user: { $first: "$user" },
+          comments: { $push: "$comments" },
+        },
+      },
       {
         $project: {
           title: 1,

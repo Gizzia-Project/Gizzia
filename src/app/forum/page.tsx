@@ -31,6 +31,7 @@ const categories = [
 
 export default function ForumPage() {
   const [posts, setPosts] = useState<PostModel[]>([]);
+  const [newPosts, setNewPosts] = useState<PostModel[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("all");
   const debouncedSearch = useDebounce(searchTerm, 500);
@@ -49,6 +50,17 @@ export default function ForumPage() {
   useEffect(() => {
     fetchPosts();
   }, [debouncedSearch, category]);
+
+  const fetchNewPosts = async () => {
+    const response = await fetch(`/api/posts`);
+    const data = await response.json();
+
+    setNewPosts(data);
+  };
+
+  useEffect(() => {
+    fetchNewPosts();
+  }, []);
 
   return (
     <>
@@ -71,7 +83,12 @@ export default function ForumPage() {
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
               <SelectContent className="bg-white text-black border border-slate-300 rounded-lg">
-                <SelectItem value="all">All Categories</SelectItem>
+                <SelectItem
+                  value="all"
+                  className="cursor-pointer hover:text-gray-600"
+                >
+                  All Categories
+                </SelectItem>
                 {categories.map((cat) => (
                   <SelectItem
                     key={cat}
@@ -106,7 +123,7 @@ export default function ForumPage() {
                   NEW DISCUSSIONS
                 </h3>
                 <div className="space-y-4">
-                  {posts.slice(0, 3).map((post, index) => (
+                  {newPosts.slice(0, 3).map((post, index) => (
                     <div key={index} className="flex items-start gap-3">
                       <Avatar>
                         <AvatarImage
