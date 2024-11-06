@@ -11,13 +11,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { PlusCircle, Search, MessageSquare, ArrowUp } from "lucide-react";
+import { PlusCircle, Search } from "lucide-react";
 import Link from "next/link";
 import PostCard from "@/components/PostCard";
 import { useDebounce } from "@/hooks/useDebounce";
 import { PostModel } from "@/@types/types.def";
 import Banner from "./components/BannerForum";
-import Image from "next/image";
 import { formatDistanceToNow } from "date-fns";
 
 const categories = [
@@ -34,9 +33,11 @@ export default function ForumPage() {
   const [newPosts, setNewPosts] = useState<PostModel[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [category, setCategory] = useState("all");
+  const [loading, setLoading] = useState(false);
   const debouncedSearch = useDebounce(searchTerm, 500);
 
   const fetchPosts = async () => {
+    setLoading(true);
     const params = new URLSearchParams();
     if (debouncedSearch) params.append("title", debouncedSearch);
     if (category && category !== "all") params.append("category", category);
@@ -45,6 +46,7 @@ export default function ForumPage() {
     const data = await response.json();
 
     setPosts(data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -61,6 +63,14 @@ export default function ForumPage() {
   useEffect(() => {
     fetchNewPosts();
   }, []);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-r from-blue-50 to-green-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black"></div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -124,33 +134,36 @@ export default function ForumPage() {
                 </h3>
                 <div className="space-y-4">
                   {newPosts.slice(0, 3).map((post, index) => (
-                    <div key={index} className="flex items-start gap-3">
-                      <Avatar>
-                        <AvatarImage
-                          src={"/placeholder.svg?height=96&width=96"}
-                          alt="Profile picture"
-                          className="object-cover"
-                        />
-                        <AvatarFallback className="flex items-center justify-center text-lg font-bold text-white bg-[#113d1e]">
-                          {post.user?.username ? post.user.username[0] : "U"}
-                        </AvatarFallback>
-                      </Avatar>
-                      <div>
-                        <span className="text-indigo-400 text-sm">
-                          {post.user?.username}
-                        </span>
-                        <h4 className="text-sm font-medium text-black">
-                          {post.title}
-                        </h4>
-                        <div className="text-xs text-black">
-                          <span>
-                            {formatDistanceToNow(new Date(post.createdAt))} ago
+                    <Link href={`/forum/${post._id}`} key={index}>
+                      <div className="flex items-start gap-3">
+                        <Avatar>
+                          <AvatarImage
+                            src={"/placeholder.svg?height=96&width=96"}
+                            alt="Profile picture"
+                            className="object-cover"
+                          />
+                          <AvatarFallback className="flex items-center justify-center text-lg font-bold text-white bg-[#113d1e]">
+                            {post.user?.username ? post.user.username[0] : "U"}
+                          </AvatarFallback>
+                        </Avatar>
+                        <div>
+                          <span className="text-indigo-400 text-sm">
+                            {post.user?.username}
                           </span>
-                          <span className="mx-2">·</span>
-                          <span>{post.comments?.length} Comments</span>
+                          <h4 className="text-sm font-medium text-black hover:text-gray-600">
+                            {post.title}
+                          </h4>
+                          <div className="text-xs text-black">
+                            <span>
+                              {formatDistanceToNow(new Date(post.createdAt))}{" "}
+                              ago
+                            </span>
+                            <span className="mx-2">·</span>
+                            <span>{post.comments?.length} Comments</span>
+                          </div>
                         </div>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               </div>

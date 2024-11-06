@@ -109,7 +109,7 @@ export default function Profile() {
                 className="object-cover"
               />
               <AvatarFallback className="flex items-center justify-center text-lg font-bold text-white bg-[#113d1e]">
-                {profile.name?.charAt(0) || profile.username?.charAt(0)}
+                {profile.username?.charAt(0)}
               </AvatarFallback>
             </Avatar>
             <CardTitle className="text-2xl font-bold text-gray-900">

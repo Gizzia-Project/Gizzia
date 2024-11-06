@@ -45,15 +45,15 @@ export default function Navbar({ token, handleFormLogout }: NavbarProps) {
           </Link>
           <Link
             className="text-[#e7eae5] hover:text-[#c4f073] transition-colors"
-            href="/health-check"
-          >
-            Health Check
-          </Link>
-          <Link
-            className="text-[#e7eae5] hover:text-[#c4f073] transition-colors"
             href="/food-check"
           >
             Food Check
+          </Link>
+          <Link
+            className="text-[#e7eae5] hover:text-[#c4f073] transition-colors"
+            href="/health-check"
+          >
+            Health Check
           </Link>
           <Link
             className="text-[#e7eae5] hover:text-[#c4f073] transition-colors"

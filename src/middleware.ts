@@ -15,6 +15,7 @@ export const middleware = async (request: NextRequest) => {
   }
 
   if (
+    request.url.includes("/api/healths") ||
     request.url.includes("/api/forum") ||
     request.url.includes("/api/users") ||
     request.url.includes("/api/donation")
@@ -40,12 +41,15 @@ export const middleware = async (request: NextRequest) => {
   }
 
   if (
+    request.url.includes("/health-check") ||
     request.url.includes("/forum") ||
     request.url.includes("/profile") ||
     request.url.includes("/donation")
   ) {
     if (!token) {
-      return NextResponse.redirect(new URL("/login", request.url));
+      return NextResponse.redirect(
+        new URL("/login?error=Login First!", request.url)
+      );
     }
 
     const tokenData = await verifyTokenJose<{ id: string; email: string }>(

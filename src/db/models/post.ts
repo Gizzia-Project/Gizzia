@@ -21,6 +21,7 @@ export const getPosts = async (title?: string, category?: string) => {
     .collection("Posts")
     .aggregate([
       { $match: filter },
+      { $sort: { createdAt: -1 } },
       {
         $lookup: {
           from: "Likes",

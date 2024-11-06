@@ -40,13 +40,13 @@ export default function Component() {
                 </Link>
               </li>
               <li>
-                <Link href="/health-check" className="hover:text-gray-300">
-                  Health Check
+                <Link href="/food-check" className="hover:text-gray-300">
+                  Food Check
                 </Link>
               </li>
               <li>
-                <Link href="/food-check" className="hover:text-gray-300">
-                  Food Check
+                <Link href="/health-check" className="hover:text-gray-300">
+                  Health Check
                 </Link>
               </li>
               <li>

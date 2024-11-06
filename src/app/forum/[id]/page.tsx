@@ -13,13 +13,14 @@ import { PostModel } from "@/@types/types.def";
 export default function PostDetailPage({ params }: { params: { id: string } }) {
   const [post, setPost] = useState<PostModel | null>(null);
   const [comment, setComment] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const fetchPost = async () => {
+    setLoading(true); // Start loading
     const response = await fetch(`/api/posts/${params.id}`);
     const data = await response.json();
-    console.log(data);
-
     setPost(data);
+    setLoading(false); // End loading
   };
 
   const handleLike = async () => {
@@ -41,6 +42,14 @@ export default function PostDetailPage({ params }: { params: { id: string } }) {
   useEffect(() => {
     fetchPost();
   }, [params.id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-r from-blue-50 to-green-50 flex items-center justify-center">
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black"></div>
+      </div>
+    );
+  }
 
   if (!post) return null;
 
