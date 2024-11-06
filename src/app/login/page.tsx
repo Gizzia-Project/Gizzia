@@ -5,6 +5,7 @@ import { Mail, Lock } from "lucide-react";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 import { cookies } from "next/headers";
+import ClientFlashComponent from "@/components/ClientFlashComponent";
 
 export default function LoginComponent() {
   const handleFormAction = async (formData: FormData) => {
@@ -77,6 +78,8 @@ export default function LoginComponent() {
             </p>
           </div>
 
+          <ClientFlashComponent />
+
           <form action={handleFormAction} method="POST" className="space-y-6">
             <div className="space-y-4">
               <div className="relative">
@@ -107,10 +110,6 @@ export default function LoginComponent() {
             >
               Login
             </Button>
-
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-transparent px-2 text-gray-300">Or</span>
-            </div>
 
             <p className="text-center text-sm text-gray-300">
               Don't have an account?{" "}
