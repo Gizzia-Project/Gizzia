@@ -1,29 +1,30 @@
-'use client'
+"use client";
 
-import { useChat } from 'ai/react'
-import Markdown from 'react-markdown'
-import { SendIcon, SquareIcon } from 'lucide-react'
-import React, { useRef, useEffect } from 'react'
-import * as ScrollArea from '@radix-ui/react-scroll-area'
-import { Button } from '@/components/ui/button'
-import { Textarea } from '@/components/ui/textarea'
-import Image from 'next/image'
+import { useChat } from "ai/react";
+import Markdown from "react-markdown";
+import { SendIcon, SquareIcon } from "lucide-react";
+import React, { useRef, useEffect } from "react";
+import * as ScrollArea from "@radix-ui/react-scroll-area";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import Image from "next/image";
 
 export function Chatbot() {
-  const { messages, input, handleInputChange, handleSubmit, isLoading, stop } = useChat({
-    api: 'api/chat',
-  })
+  const { messages, input, handleInputChange, handleSubmit, isLoading, stop } =
+    useChat({
+      api: "api/chat",
+    });
 
-  const scrollAreaRef = useRef<HTMLDivElement>(null)
+  const scrollAreaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (scrollAreaRef.current) {
-      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight
+      scrollAreaRef.current.scrollTop = scrollAreaRef.current.scrollHeight;
     }
-  }, [messages])
+  }, [messages]);
 
   return (
-    <div className="flex flex-col h-[600px] w-full max-w-2xl mx-auto bg-background border rounded-lg shadow-lg">
+    <div className="flex flex-col h-[500px] w-full max-w-2xl mx-auto rounded-lg overflow-hidden">
       <div className="flex-1 overflow-hidden">
         <ScrollArea.Root className="h-full w-full">
           <ScrollArea.Viewport ref={scrollAreaRef} className="h-full w-full">
@@ -35,28 +36,33 @@ export function Chatbot() {
                     alt="AI"
                     width={80}
                     height={80}
-                    className="text-primary"
+                    className="opacity-75"
                   />
-                  <p className="text-lg text-muted-foreground mt-4">
-                    Welcome to the ChatbotAI! Do you need help?
+                  <p className="text-lg text-white/70 mt-4">
+                    Hello, i'm Mr. Gizz! How can I help you today?
                   </p>
                 </div>
               ) : (
                 messages.map((message) =>
-                  message.role === 'assistant' ? (
+                  message.role === "assistant" ? (
                     <div key={message.id} className="flex items-start gap-3">
-                      <div className="p-2 bg-primary rounded-full">
-                        <Image src="/ai-white.png" alt="AI" width={20} height={20} />
+                      <div className="p-2 bg-[#1B2E20] rounded-full">
+                        <Image
+                          src="/ai-white.png"
+                          alt="AI"
+                          width={20}
+                          height={20}
+                        />
                       </div>
-                      <div className="bg-muted rounded-lg p-3 max-w-[80%]">
-                        <Markdown className="text-sm text-foreground prose">
+                      <div className="bg-white/10 rounded-lg p-3 max-w-[80%]">
+                        <Markdown className="text-sm text-white/90 prose prose-invert">
                           {message.content}
                         </Markdown>
                       </div>
                     </div>
                   ) : (
                     <div key={message.id} className="flex justify-end">
-                      <div className="bg-primary text-primary-foreground rounded-lg p-3 max-w-[80%]">
+                      <div className="bg-[#1B2E20] text-white rounded-lg p-3 max-w-[80%]">
                         <p className="text-sm">{message.content}</p>
                       </div>
                     </div>
@@ -69,38 +75,38 @@ export function Chatbot() {
             className="flex touch-none select-none transition-colors duration-[160ms] ease-out data-[orientation=vertical]:w-2.5 data-[orientation=horizontal]:flex-col"
             orientation="vertical"
           >
-            <ScrollArea.Thumb className="relative flex-1 rounded-[10px] bg-muted-foreground/20" />
+            <ScrollArea.Thumb className="relative flex-1 rounded-[10px] bg-white/20" />
           </ScrollArea.Scrollbar>
         </ScrollArea.Root>
       </div>
       <form
         onSubmit={handleSubmit}
-        className="border-t bg-muted/50 px-4 py-3 flex items-center gap-2"
+        className="border-t border-white/10 bg-white/5 px-4 py-3 flex items-center gap-2"
       >
         <div className="relative flex-1">
           <Textarea
-            placeholder="Ask about nutrition..."
-            className="rounded-lg pr-12 min-h-[64px] resize-none"
+            placeholder="Tell me nutrition of apple..."
+            className="rounded-lg pr-12 min-h-[64px] resize-none bg-white/10 border-white/10 text-white placeholder:text-white/50"
             rows={1}
             value={input}
             onChange={handleInputChange}
           />
           <Button
-            type={isLoading ? 'button' : 'submit'}
+            type={isLoading ? "button" : "submit"}
             size="icon"
             disabled={!input && !isLoading}
             onClick={isLoading ? stop : undefined}
-            className="absolute bottom-2 right-2 rounded-full"
+            className="absolute bottom-2 right-2 rounded-full bg-[#1B2E20] hover:bg-[#2A4530]"
           >
             {isLoading ? (
               <SquareIcon className="w-5 h-5" />
             ) : (
               <SendIcon className="w-5 h-5" />
             )}
-            <span className="sr-only">{isLoading ? 'Stop' : 'Send'}</span>
+            <span className="sr-only">{isLoading ? "Stop" : "Send"}</span>
           </Button>
         </div>
       </form>
     </div>
-  )
+  );
 }
