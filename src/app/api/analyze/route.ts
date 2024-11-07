@@ -9,7 +9,7 @@ const visionClient = new ImageAnnotatorClient({
   },
 });
 
-const genAI = new GoogleGenerativeAI("AIzaSyDshcEI3kolWIhCigBt9h5qvCrKgxummfE");
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 
 export async function POST(request: Request) {
   try {
